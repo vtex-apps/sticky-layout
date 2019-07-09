@@ -20,12 +20,12 @@ This props should be edited at your theme's `blocks.json`
 `PositionEnum` description:
 | Enum name | Enum value | Description |
 | --------- | ---- | ----------- |
-| BOTTOM | 'BOTTOM' | Component will stick to the bottom of screen |
+| BOTTOM | 'bottom' | Component will stick to the bottom of screen |
 
 ### Example usage
 
-```
-"store.product": {
+```json
+  "store.product": {
     "children": [
       "flex-layout.row#product-breadcrumb",
       "flex-layout.row#product-main",
@@ -37,7 +37,7 @@ This props should be edited at your theme's `blocks.json`
   },
   "sticky-layout#buy-button": {
     "props": {
-      "position": "BOTTOM"
+      "position": "bottom"
     },
     "children": ["flex-layout.row#buy-button"]
   },
@@ -49,5 +49,4 @@ This props should be edited at your theme's `blocks.json`
     },
     "children": ["buy-button"]
   },
-}
 ```

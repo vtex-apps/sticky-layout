@@ -1,15 +1,15 @@
 import React, { Fragment, FC, useRef, useEffect } from 'react'
 import { generateBlockClass, BlockClass } from '@vtex/css-handles'
-//@ts-ignore
-import styles from './styles.css'
 import { path } from 'ramda'
 
-enum POSITIONS {
-  BOTTOM = 'BOTTOM',
+import styles from './styles.css'
+
+enum Positions {
+  BOTTOM = 'bottom',
 }
 
 interface Props {
-  position?: POSITIONS
+  position?: Positions
 }
 
 interface StorefrontComponent extends FC<Props & BlockClass> {
@@ -25,9 +25,9 @@ const StickyLayoutComponent: StorefrontComponent = ({
   const startTop = useRef<number | null>(null)
   const hasTouched = useRef<boolean>(false)
 
-  if (position !== POSITIONS.BOTTOM) {
-    // Only 'BOTTOM' position supported for now!
-    return null
+  if (position !== Positions.BOTTOM) {
+    // Only 'bottom' position supported for now!
+    return <Fragment>{children}</Fragment>
   }
 
   const handleScroll = () => {
@@ -45,12 +45,12 @@ const StickyLayoutComponent: StorefrontComponent = ({
 
     if (newTop < 0) {
       hasTouched.current = true
-      container.current.style.transform = `translateY(${newTop}px)`
+      container.current.style.transform = `translate3d(0, ${newTop}px, 0)`
       return
     }
     if (newTop >= 0) {
       // Reset and don't change anything
-      container.current.style.transform = `translateY(0px)`
+      container.current.style.transform = `translate3d(0, 0px, 0)`
     }
   }
 
