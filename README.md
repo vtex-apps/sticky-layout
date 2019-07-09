@@ -24,7 +24,7 @@ This props should be edited at your theme's `blocks.json`
 
 ### Example usage
 
-```json
+```js
   "store.product": {
     "children": [
       "flex-layout.row#product-breadcrumb",
