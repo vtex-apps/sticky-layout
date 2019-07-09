@@ -1,0 +1,7 @@
+{
+  "sticky-layout": {
+    "allowed": "*",
+    "component": "index",
+    "composition": "children"
+  }
+}
