@@ -2,8 +2,8 @@
   "vendor": "vtex",
   "name": "sticky-layout",
   "version": "0.0.1",
-  "title": "Modal",
-  "description": "Sticky Layout",
+  "title": "Sticky Layout",
+  "description": "Sticky Layout component",
   "builders": {
     "store": "0.x",
     "react": "3.x"
