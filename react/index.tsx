@@ -1,4 +1,4 @@
-import React, { Fragment, FC, useRef, useEffect } from 'react'
+import React, { Fragment, FC, useRef, useEffect, useCallback } from 'react'
 import { generateBlockClass, BlockClass } from '@vtex/css-handles'
 import { path } from 'ramda'
 
@@ -30,7 +30,7 @@ const StickyLayoutComponent: StorefrontComponent = ({
     return <Fragment>{children}</Fragment>
   }
 
-  const handleScroll = () => {
+  const handleScroll = useCallback(() => {
     if (!container.current) {
       return
     }
@@ -52,36 +52,34 @@ const StickyLayoutComponent: StorefrontComponent = ({
       // Reset and don't change anything
       container.current.style.transform = `translate3d(0, 0px, 0)`
     }
-  }
+  }, [])
 
   useEffect(() => {
     window && window.addEventListener('scroll', handleScroll)
     return () => {
       window && window.removeEventListener('scroll', handleScroll)
     }
-  }, [])
+  }, [handleScroll])
   const viewOffset = path<number>(['current', 'offsetTop'], container)
   useEffect(() => {
     if (viewOffset != null && !hasTouched.current) {
       startTop.current = viewOffset
       handleScroll()
     }
-  }, [viewOffset])
+  }, [handleScroll, viewOffset])
 
   return (
-    <Fragment>
-      <div
-        ref={container}
-        className={generateBlockClass(styles.container, blockClass)}
-        style={{
-          position: 'relative',
-          bottom: 0,
-          zIndex: 10,
-        }}
-      >
-        {children}
-      </div>
-    </Fragment>
+    <div
+      ref={container}
+      className={generateBlockClass(styles.container, blockClass)}
+      style={{
+        position: 'relative',
+        bottom: 0,
+        zIndex: 10,
+      }}
+    >
+      {children}
+    </div>
   )
 }
 
