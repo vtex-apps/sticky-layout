@@ -4,7 +4,7 @@ This component is used to make its children have sticky behaviour.
 
 For now, it supports only one postion, with value "BOTTOM".
 
-Passing the prop `"position": "BOTTOM"` in your blocks.json, makes its children stick to the bottom of its view, while it should be hidden and once it reaches the position it should be, it stops and stays there.
+Passing the prop `"position": "bottom"` in your blocks.json, makes its children stick to the bottom of its view, while it should be hidden and once it reaches the position it should be, it stops and stays there.
 
 You can understand more by reading this example: https://www.w3schools.com/howto/howto_css_sticky_element.asp
 
