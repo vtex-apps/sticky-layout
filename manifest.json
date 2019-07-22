@@ -1,7 +1,7 @@
 {
   "vendor": "vtex",
   "name": "sticky-layout",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "title": "Sticky Layout",
   "description": "Sticky Layout component",
   "builders": {
