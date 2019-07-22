@@ -30,16 +30,25 @@ const StickyLayoutComponent: StorefrontComponent = ({
     return <Fragment>{children}</Fragment>
   }
 
-  const handleScroll = useCallback(() => {
+  const handleScroll = useCallback((e?: Event) => {
+    const target = (e && e.target) as HTMLDivElement | null
     if (!container.current) {
       return
     }
     if (startTop.current == null) {
       startTop.current = container.current.offsetTop
     }
+
+    // We have to get this baseTop variable to handle cases when a modal changes the top style of the base element, resetting the window.pageYOfsset
+    const baseTop = parseInt(
+      path(['scrollingElement', 'style', 'top'], target) || '0',
+      10
+    )
+    const componentTop = startTop.current + baseTop
+
     const newTop =
       window.innerHeight -
-      startTop.current -
+      componentTop -
       container.current.clientHeight +
       window.pageYOffset
 
