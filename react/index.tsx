@@ -1,6 +1,6 @@
 import React, { Fragment, FC, useRef, useEffect, useCallback } from 'react'
 import { generateBlockClass, BlockClass } from '@vtex/css-handles'
-import { path, head } from 'ramda'
+import { path } from 'ramda'
 
 import styles from './styles.css'
 
@@ -14,15 +14,6 @@ interface Props {
 
 interface StorefrontComponent extends FC<Props & BlockClass> {
   schema?: any
-}
-
-const transformPxToInt = (value?: string) => {
-  if (!value) {
-    return 0
-  }
-  const isNegative = head(value) === '-'
-  const number = parseInt(value.replace(/\D/g, ''), 10)
-  return isNegative ? -1 * number : number
 }
 
 const StickyLayoutComponent: StorefrontComponent = ({
@@ -40,7 +31,7 @@ const StickyLayoutComponent: StorefrontComponent = ({
   }
 
   const handleScroll = useCallback((e?: Event) => {
-    const target = e && (e.target as HTMLDivElement | null)
+    const target = (e && e.target) as HTMLDivElement | null
     if (!container.current) {
       return
     }
@@ -49,8 +40,9 @@ const StickyLayoutComponent: StorefrontComponent = ({
     }
 
     // We have to get this baseTop variable to handle cases when a modal changes the top style of the base element, resetting the window.pageYOfsset
-    const baseTop = transformPxToInt(
-      path(['scrollingElement', 'style', 'top'], target)
+    const baseTop = parseInt(
+      path(['scrollingElement', 'style', 'top'], target) || '0',
+      10
     )
     const componentTop = startTop.current + baseTop
 
