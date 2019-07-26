@@ -74,10 +74,7 @@ const StickyLayoutComponent: StorefrontComponent = ({
   return (
     <div
       ref={container}
-      className={`${generateBlockClass(
-        styles.container,
-        blockClass
-      )} sticky-teste`}
+      className={generateBlockClass(styles.container, blockClass)}
       style={{
         position: 'relative',
         bottom: 0,
