@@ -22,7 +22,6 @@ const StickyLayoutComponent: StorefrontComponent = ({
   blockClass,
 }) => {
   const container = useRef<HTMLDivElement>(null)
-  const startTop = useRef<number | null>(null)
 
   if (position !== Positions.BOTTOM) {
     // Only 'bottom' position supported for now!
@@ -34,14 +33,13 @@ const StickyLayoutComponent: StorefrontComponent = ({
     if (!container.current) {
       return
     }
-    startTop.current = container.current.offsetTop
 
     // We have to get this baseTop variable to handle cases when a modal changes the top style of the base element, resetting the window.pageYOfsset
     const baseTop = parseInt(
       path(['scrollingElement', 'style', 'top'], target) || '0',
       10
     )
-    const componentTop = startTop.current + baseTop
+    const componentTop = container.current.offsetTop + baseTop
 
     const newTop =
       window.innerHeight -
