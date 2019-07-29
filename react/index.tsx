@@ -22,8 +22,6 @@ const StickyLayoutComponent: StorefrontComponent = ({
   blockClass,
 }) => {
   const container = useRef<HTMLDivElement>(null)
-  const startTop = useRef<number | null>(null)
-  const hasTouched = useRef<boolean>(false)
 
   if (position !== Positions.BOTTOM) {
     // Only 'bottom' position supported for now!
@@ -35,16 +33,13 @@ const StickyLayoutComponent: StorefrontComponent = ({
     if (!container.current) {
       return
     }
-    if (startTop.current == null) {
-      startTop.current = container.current.offsetTop
-    }
 
     // We have to get this baseTop variable to handle cases when a modal changes the top style of the base element, resetting the window.pageYOfsset
     const baseTop = parseInt(
       path(['scrollingElement', 'style', 'top'], target) || '0',
       10
     )
-    const componentTop = startTop.current + baseTop
+    const componentTop = container.current.offsetTop + baseTop
 
     const newTop =
       window.innerHeight -
@@ -53,7 +48,6 @@ const StickyLayoutComponent: StorefrontComponent = ({
       window.pageYOffset
 
     if (newTop < 0) {
-      hasTouched.current = true
       container.current.style.transform = `translate3d(0, ${newTop}px, 0)`
       return
     }
@@ -70,9 +64,9 @@ const StickyLayoutComponent: StorefrontComponent = ({
     }
   }, [handleScroll])
   const viewOffset = path<number>(['current', 'offsetTop'], container)
+  // This effect places the button at the right position while the screen is mounting
   useEffect(() => {
-    if (viewOffset != null && !hasTouched.current) {
-      startTop.current = viewOffset
+    if (viewOffset != null) {
       handleScroll()
     }
   }, [handleScroll, viewOffset])
