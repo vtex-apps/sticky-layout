@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- Support for `position: 'top'` to make children stick at the top of the viewport.
+- New `StickyRow` and `StickyRows` components that are exported by the app.
+
 ## [0.1.2] - 2019-07-29
 ### Fixed
 - Avoid setting the start top in a custom ref, always get it from the div ref.
