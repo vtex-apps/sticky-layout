@@ -14,6 +14,7 @@ This props should be edited at your theme's `blocks.json`
 | ------------ | -------------- | --------------------------------------------------------- | ------------- |
 | `blockClass` | `String`       | Unique class name to be appended to block container class | `""`          |
 | `position`   | `PositionEnum` | Indicates where the component should stick                | N/A           |
+| `zIndex`     | `Number`       | Controls the `sticky-layout` wrapper z-index              | 999           |
 
 `PositionEnum` description:
 
