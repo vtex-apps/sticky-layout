@@ -7,14 +7,12 @@
     "test": "vtex-test-tools test"
   },
   "dependencies": {
-    "@vtex/css-handles": "^1.1.0",
-    "react-resize-detector": "^4.2.0"
+    "@vtex/css-handles": "^1.1.0"
   },
   "devDependencies": {
     "@types/jest": "^24.0.18",
     "@types/node": "^11.10.0",
     "@types/react": "^16.8.6",
-    "@types/react-resize-detector": "^4.0.2",
     "@vtex/test-tools": "^1.1.0",
     "eslint": "^6.0.0",
     "eslint-config-vtex-react": "^5.0.1",
