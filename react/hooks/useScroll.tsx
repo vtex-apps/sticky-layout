@@ -33,10 +33,12 @@ export const useScroll = (
       }
 
       // We have to get this baseTop variable to handle cases when a modal changes the top style of the base element, resetting the window.pageYOfsset
-      const baseTop = parseInt(
-        path(['scrollingElement', 'style', 'top'], target) || '0',
-        10
+      const scrollingElementTop = parseInt(
+        path<string>(['scrollingElement', 'style', 'top'], target) || '0'
       )
+      const baseTop = !Number.isNaN(scrollingElementTop)
+        ? scrollingElementTop
+        : 0
       const componentTop = container.current.offsetTop + baseTop
 
       const newTop = resolveNewTop(position, container, componentTop)
