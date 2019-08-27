@@ -11,11 +11,11 @@ function resolveNewTop(
   container: RefObject<HTMLDivElement>,
   componentTop: number
 ) {
-  if (position === Positions.TOP)
+  if (position === Positions.TOP) {
     return componentTop > window.pageYOffset
       ? 0
       : -(componentTop - window.pageYOffset)
-
+  }
   const clientHeight = path<number>(['current', 'clientHeight'], container) || 0
 
   return window.innerHeight - componentTop - clientHeight + window.pageYOffset
