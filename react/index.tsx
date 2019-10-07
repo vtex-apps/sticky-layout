@@ -1,8 +1,8 @@
 import React, { Fragment, FC, useRef, useEffect, useCallback } from 'react'
-import { generateBlockClass, BlockClass } from '@vtex/css-handles'
 import { path } from 'ramda'
+import { useCssHandles } from 'vtex.css-handles'
 
-import styles from './styles.css'
+const CSS_HANDLES = ['container'] as const
 
 enum Positions {
   BOTTOM = 'bottom',
@@ -12,16 +12,16 @@ interface Props {
   position?: Positions
 }
 
-interface StorefrontComponent extends FC<Props & BlockClass> {
+interface StorefrontComponent extends FC<Props> {
   schema?: any
 }
 
 const StickyLayoutComponent: StorefrontComponent = ({
   children,
   position,
-  blockClass,
 }) => {
   const container = useRef<HTMLDivElement>(null)
+  const handles = useCssHandles(CSS_HANDLES)
 
   if (position !== Positions.BOTTOM) {
     // Only 'bottom' position supported for now!
@@ -74,7 +74,7 @@ const StickyLayoutComponent: StorefrontComponent = ({
   return (
     <div
       ref={container}
-      className={generateBlockClass(styles.container, blockClass)}
+      className={handles.container}
       style={{
         position: 'relative',
         bottom: 0,
