@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Fixed
+
+- Bottom behavior was janky and sometimes stuck in the middle of the screen
+
+### Added
+
+- `TOP` position to be fixed in the top of the screen
+- `verticalSpacing` to reflect the distance of the selected position
+
 ## [0.1.4] - 2019-10-07
 
 ## [0.1.3] - 2019-08-29
