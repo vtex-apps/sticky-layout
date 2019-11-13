@@ -1,88 +1,69 @@
-import React, { Fragment, FC, useRef, useEffect, useCallback } from 'react'
+import React, { Fragment, FC, useEffect } from 'react'
 import { path } from 'ramda'
 import { useCssHandles } from 'vtex.css-handles'
+import { useStickyScroll } from './useStickyScroll'
 
 const CSS_HANDLES = ['container'] as const
 
 enum Positions {
   BOTTOM = 'bottom',
+  TOP = 'top',
 }
 
 interface Props {
   position?: Positions
+  verticalSpacing?: number
 }
 
 interface StorefrontComponent extends FC<Props> {
   schema?: any
 }
 
-const StickyLayoutComponent: StorefrontComponent = ({
-  children,
-  position,
-}) => {
-  const container = useRef<HTMLDivElement>(null)
+const StickyLayoutComponent: StorefrontComponent = ({ children, position, verticalSpacing = 0 }) => {
   const handles = useCssHandles(CSS_HANDLES)
-
-  if (position !== Positions.BOTTOM) {
-    // Only 'bottom' position supported for now!
-    return <Fragment>{children}</Fragment>
-  }
-
-  const handleScroll = useCallback((e?: Event) => {
-    const target = (e && e.target) as HTMLDivElement | null
-    if (!container.current) {
-      return
-    }
-
-    // We have to get this baseTop variable to handle cases when a modal changes the top style of the base element, resetting the window.pageYOfsset
-    const baseTop = parseInt(
-      path(['scrollingElement', 'style', 'top'], target) || '0',
-      10
-    )
-    const componentTop = container.current.offsetTop + baseTop
-
-    const newTop =
-      window.innerHeight -
-      componentTop -
-      container.current.clientHeight +
-      window.pageYOffset
-
-    if (newTop < 0) {
-      container.current.style.transform = `translate3d(0, ${newTop}px, 0)`
-      return
-    }
-    if (newTop >= 0) {
-      // Reset and don't change anything
-      container.current.style.transform = `translate3d(0, 0px, 0)`
-    }
-  }, [])
+  const {
+    containerReference,
+    container,
+    handlePosition,
+    debouncedHandlePosition
+  } = useStickyScroll({ position, verticalSpacing })
 
   useEffect(() => {
-    window && window.addEventListener('scroll', handleScroll)
+    window && window.addEventListener('scroll', debouncedHandlePosition)
+    window && window.addEventListener('resize', handlePosition)
     return () => {
-      window && window.removeEventListener('scroll', handleScroll)
+      window && window.removeEventListener('scroll', debouncedHandlePosition)
+      window && window.removeEventListener('resize', handlePosition)
     }
-  }, [handleScroll])
-  const viewOffset = path<number>(['current', 'offsetTop'], container)
+  }, [handlePosition])
+
+  const viewOffset = path<number>(['current', 'offsetTop'], containerReference)
   // This effect places the button at the right position while the screen is mounting
   useEffect(() => {
     if (viewOffset != null) {
-      handleScroll()
+      handlePosition()
     }
-  }, [handleScroll, viewOffset])
+  }, [handlePosition, viewOffset])
+
+  if (!position || (position !== Positions.BOTTOM && position !== Positions.TOP)) {
+    return <Fragment>{children}</Fragment>
+  }
 
   return (
-    <div
-      ref={container}
-      className={handles.container}
-      style={{
-        position: 'relative',
-        bottom: 0,
-        zIndex: 10,
-      }}
-    >
-      {children}
-    </div>
+    <Fragment>
+      <div ref={containerReference}></div>
+      <div
+        ref={container}
+        className={handles.container}
+        style={{
+          position: 'relative',
+          bottom: 0,
+          zIndex: 10,
+        }}
+      >
+        {children}
+      </div>
+    </Fragment>
   )
 }
 
