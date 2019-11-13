@@ -12,15 +12,18 @@ You can understand more by reading this example: https://www.w3schools.com/howto
 
 This props should be edited at your theme's `blocks.json`
 
-| Prop name    | Type           | Description                                               | Default value |
-| ------------ | -------------- | --------------------------------------------------------- | ------------- |
-| `blockClass` | `String`       | Unique class name to be appended to block container class | `""`          |
-| `position`   | `PositionEnum` | Indicates where the component should stick                | N/A           |
+| Prop name         | Type           | Description                                                                  | Default value |
+| ----------------- | -------------- | ---------------------------------------------------------------------------- | ------------- |
+| `blockClass`      | `String`       | Unique class name to be appended to block container class                    | `""`          |
+| `position`        | `PositionEnum` | Indicates where the component should stick                                   | N/A           |
+| `verticalSpacing` | `Number`       | Indicates the distance in pixels from the position chosen in `position` prop | 0             |
 
 `PositionEnum` description:
-| Enum name | Enum value | Description |
-| --------- | ---- | ----------- |
-| BOTTOM | 'bottom' | Component will stick to the bottom of screen |
+
+| Enum name | Enum value | Description                                  |
+| --------- | ---------- | -------------------------------------------- |
+| TOP       | 'top'      | Component will stick to the top of screen    |
+| BOTTOM    | 'bottom'   | Component will stick to the bottom of screen |
 
 ### Example usage
 
