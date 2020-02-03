@@ -2,7 +2,7 @@
 
 This component is used to make its children have sticky behaviour.
 
-For now, it supports only one postion, with value "BOTTOM".
+For now, it supports two position states `bottom` and `top`.
 
 Passing the prop `"position": "bottom"` in your blocks.json, makes its children stick to the bottom of its view, while it should be hidden and once it reaches the position it should be, it stops and stays there.
 
