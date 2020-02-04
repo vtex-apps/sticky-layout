@@ -8,13 +8,9 @@ interface EventDelegator extends EventListenerObject {
 
 const eventDelegator: EventDelegator = {
   handleEvent: (e: Event) => {
-    let handlerName = 'defaultHandler'
-
-    if (handlerName in eventDelegator) {
-      handlerName = `${e.type}Handler`
-    }
-
-    eventDelegator[handlerName](e)
+    const handler =
+      eventDelegator?.[`${e.type}Handler`] ?? eventDelegator.defaultHandler
+    handler(e)
   },
   scrollHandler: throttle((e: Event) => {
     const scrollY = window.pageYOffset
