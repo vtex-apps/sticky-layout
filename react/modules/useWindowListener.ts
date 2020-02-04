@@ -1,5 +1,5 @@
-import throttle from 'throttleit'
 import { useLayoutEffect } from 'react'
+import throttle from 'throttleit'
 
 const currentEvents: Record<string, Set<Function>> = {}
 
@@ -16,7 +16,7 @@ const handlers: Record<string, (e: Event) => void> = {
   },
 }
 
-function getHandler(event: string): (e: Event) => unknown {
+function getHandler(event: string): (e: Event) => void {
   return handlers[event] ?? handlers.default
 }
 
