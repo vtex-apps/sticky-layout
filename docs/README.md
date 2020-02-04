@@ -6,6 +6,15 @@ The Sticky Layout app provides layout structures to help building elements that 
 >
 > You can understand more by reading about in the [MDN `position` documentation](https://developer.mozilla.org/en-US/docs/Web/CSS/position#Sticky_positioning).
 
+<!-- @import "[TOC]" {cmd="toc" depthFrom=3 depthTo=6 orderedList=false} -->
+
+<!-- code_chunk_output -->
+
+- [`sticky-layout`](#sticky-layout)
+- [`sticky-layout.stack-container`](#sticky-layoutstack-container)
+
+<!-- /code_chunk_output -->
+
 ## Blocks
 
 ### `sticky-layout`
@@ -16,7 +25,7 @@ The `sticky-layout` block is responsible for making its children _stick_ to a ce
 
 | Prop name         | Type           | Description                                                                      | Default value |
 | ----------------- | -------------- | -------------------------------------------------------------------------------- | ------------- |
-| `blockClass`      | `String`       | Unique class name to be appended to block container class                        | `""`          |
+| `blockClass`      | `String`       | Unique class name to be appended to the container class                          | `""`          |
 | `position`        | `PositionEnum` | Indicates where the component should stick                                       | `N/A`         |
 | `verticalSpacing` | `Number`       | Indicates the distance in pixels from the position chosen in the `position` prop | `0`           |
 
@@ -34,9 +43,10 @@ The `sticky-layout` block is responsible for making its children _stick_ to a ce
 | `container`        | Sticky layout container                                      |
 | `container--stuck` | Sticky layout container when stuck to a position on the page |
 
-#### Example usage
+**Example usage:**
 
-```js
+```jsonc
+{
   "store.product": {
     "children": [
       "flex-layout.row#product-breadcrumb",
@@ -60,21 +70,20 @@ The `sticky-layout` block is responsible for making its children _stick_ to a ce
       "paddingBottom": 2
     },
     "children": ["buy-button"]
-  },
+  }
+}
 ```
 
 ### `sticky-layout.stack-container`
 
-The `sticky-layout.stack-container` block is can be used to orchestrate multiple `sticky-layout`s to have a stack behavior with each other.
-
-In example, imagine three blocks: the first and the last being a `sticky-layout` and the second being any other block. A gap between both `sticky-layout`s will appear the moment the user starts scrolling the page. By defining those blocks inside a `sticky-layout.stack-container`, the second `sticky-layout` block will stick to the first `sticky-layout` instead of respecting the aformetioned gap.
+The `sticky-layout.stack-container` block can be used to orchestrate multiple `sticky-layout`s to have a stack behavior instead of one being on top of the other.
 
 **Props:**
 
-| Prop name    | Type           | Description                                                                                                | Default value |
-| ------------ | -------------- | ---------------------------------------------------------------------------------------------------------- | ------------- |
-| `blockClass` | `String`       | Unique class name to be appended to block container class                                                  | `""`          |
-| `position`   | `PositionEnum` | Indicates where the component should stick. _It overrides the `position` of its children `sticky-layout`._ | `N/A`         |
+| Prop name    | Type           | Description                                                                                               | Default value |
+| ------------ | -------------- | --------------------------------------------------------------------------------------------------------- | ------------- |
+| `blockClass` | `String`       | Unique class name to be appended to the container class                                                   | `""`          |
+| `position`   | `PositionEnum` | Indicates where the component should stick. _It overrides the `position` of its children `sticky-layout`_ | `N/A`         |
 
 `PositionEnum` options:
 
@@ -82,3 +91,44 @@ In example, imagine three blocks: the first and the last being a `sticky-layout`
 | --------- | ---------- | -------------------------------------------- |
 | `TOP`     | `'top'`    | Component will stick to the top of screen    |
 | `BOTTOM`  | `'bottom'` | Component will stick to the bottom of screen |
+
+**Example usage:**
+
+Imagine three blocks: the first and the last being a `sticky-layout` and the second being any other block. A gap between both `sticky-layout`s will appear the moment the user starts scrolling the page. By defining those blocks inside a `sticky-layout.stack-container`, the second `sticky-layout` block will stick to the first `sticky-layout` instead of respecting the aformetioned gap or being one on top of the other.
+
+```jsonc
+{
+  "header": {
+    "blocks": ["header-layout.desktop"]
+  },
+  "header.full": {
+    "blocks": ["header-layout.desktop"]
+  },
+  "header-layout.desktop": {
+    // define a stack-container
+    "children": ["sticky-layout.stack-container#header"]
+  },
+  "sticky-layout.stack-container#header": {
+    "props": {
+      "position": "top"
+    },
+    "children": [
+      "sticky-layout#links-menu",
+      // this notification.bar is not sticky, it will be scrolled away
+      "notification.bar#home",
+      "sticky-layout#main-menu"
+    ]
+  },
+  "notification.bar#home": {
+    "props": {
+      "content": "SELECTED ITEMS ON SALE! CHECK IT OUT!"
+    }
+  },
+  "sticky-layout#links-menu": {
+    "children": ["vtex.menu@2.x:menu#websites"]
+  },
+  "sticky-layout#main-menu": {
+    "children": ["vtex.menu@2.x:menu#category-menu"]
+  }
+}
+```
