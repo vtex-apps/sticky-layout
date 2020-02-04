@@ -1,6 +1,6 @@
 # VTEX Sticky Layout
 
-The Sticky Layout app provides layout structures to help building elements that should be fixed related to the viewport in certain contexts.
+The Sticky Layout app provides layout structures to help building elements that should be fixed relative to the viewport in certain contexts.
 
 > Sticky positioning is a hybrid of relative and fixed positioning. The element is treated as relative positioned until it crosses a specified threshold, at which point it is treated as fixed positioned.
 >
@@ -16,7 +16,7 @@ The `sticky-layout` block is responsible for making its children _stick_ to a ce
 
 | Prop name         | Type           | Description                                                                      | Default value |
 | ----------------- | -------------- | -------------------------------------------------------------------------------- | ------------- |
-| `blockClass`      | `String`       | Unique class name to be appended to block container class                        | `""`          |
+| `blockClass`      | `String`       | Unique class name to be appended to block container class                        | `""`          |
 | `position`        | `PositionEnum` | Indicates where the component should stick                                       | `N/A`         |
 | `verticalSpacing` | `Number`       | Indicates the distance in pixels from the position chosen in the `position` prop | `0`           |
 
