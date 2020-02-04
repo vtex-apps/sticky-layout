@@ -1,11 +1,7 @@
 import { useCallback, useState } from 'react'
 
 import { useWindowListener } from './useWindowListener'
-
-enum Positions {
-  BOTTOM = 'bottom',
-  TOP = 'top',
-}
+import { Positions } from '../typings'
 
 interface StickyProps {
   position?: Positions
