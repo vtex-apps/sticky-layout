@@ -7,7 +7,8 @@
     "test": "vtex-test-tools test"
   },
   "dependencies": {
-    "throttleit": "^1.0.0"
+    "throttleit": "^1.0.0",
+    "react-resize-detector": "^4.2.1"
   },
   "devDependencies": {
     "@types/jest": "^24.0.18",
@@ -18,7 +19,6 @@
     "@vtex/tsconfig": "^0.2.0",
     "apollo-cache-inmemory": "^1.6.3",
     "apollo-client": "^2.6.4",
-    "react-resize-detector": "^4.2.1",
     "typescript": "3.7.3",
     "vtex.css-handles": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.css-handles@0.4.1/public/@types/vtex.css-handles",
     "vtex.render-runtime": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.render-runtime@8.90.2/public/@types/vtex.render-runtime"
