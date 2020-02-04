@@ -95,7 +95,7 @@ const StickyLayoutComponent: FC<Props> = ({
   }
 
   const placeholderStyle = {
-    height: isStuck ? containerRef.current?.clientHeight ?? 0 : 0,
+    height: isStuck ? contentHeight : 0,
   }
 
   return (
