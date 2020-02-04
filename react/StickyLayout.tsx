@@ -13,7 +13,7 @@ import { useCssHandles } from 'vtex.css-handles'
 import { useStickyScroll } from './modules/useStickyScroll'
 import { StackContext } from './StackContainer'
 import { Positions } from './typings'
-import { attachListener } from './modules/windowListener'
+import { useWindowListener } from './modules/useWindowListener'
 
 const CSS_HANDLES = ['container'] as const
 
@@ -61,9 +61,7 @@ const StickyLayoutComponent: FC<Props> = ({
   }, [updatePlaceholderOffset])
 
   // update the placeholder offset on DOM Parsing done
-  useLayoutEffect(() => {
-    return attachListener(['DOMContentLoaded'], updatePlaceholderOffset)
-  }, [updatePlaceholderOffset])
+  useWindowListener(['DOMContentLoaded'], updatePlaceholderOffset)
 
   // Context position prop precedes the StickyLayout position prop
   const position = positionContext ?? positionProp ?? Positions.TOP

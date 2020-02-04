@@ -1,6 +1,6 @@
-import { useCallback, useLayoutEffect, useState } from 'react'
+import { useCallback, useState } from 'react'
 
-import { attachListener } from './windowListener'
+import { useWindowListener } from './useWindowListener'
 
 enum Positions {
   BOTTOM = 'bottom',
@@ -24,42 +24,38 @@ export const useStickyScroll = ({
 }: StickyProps) => {
   const [isStuck, setStuck] = useState<boolean>(false)
 
-  const handlePosition = useCallback(() => {
-    if (!contentHeight) {
-      return
-    }
+  const handlePosition = useCallback(
+    (scrollY: number) => {
+      if (!contentHeight) return
 
-    const scrollY = window.pageYOffset
+      let currentPosition = scrollY
+      let stuckPosition = placeholderOffsetTop
 
-    let currentPosition = scrollY
-    let stuckPosition = placeholderOffsetTop
+      if (position === Positions.TOP) {
+        stuckPosition -= stickOffset - verticalSpacing
+      } else {
+        currentPosition += window.innerHeight
+        stuckPosition += stickOffset + verticalSpacing + contentHeight
+      }
 
-    if (position === Positions.TOP) {
-      stuckPosition -= stickOffset - verticalSpacing
-    } else {
-      currentPosition += window.innerHeight
-      stuckPosition += stickOffset + verticalSpacing + contentHeight
-    }
+      const shouldStuck = currentPosition >= stuckPosition
 
-    const shouldStuck = currentPosition >= stuckPosition
+      // same state, do nothing
+      if (isStuck === shouldStuck) return
 
-    // same state, do nothing
-    if (isStuck === shouldStuck) return
+      setStuck(shouldStuck)
+    },
+    [
+      contentHeight,
+      placeholderOffsetTop,
+      position,
+      isStuck,
+      stickOffset,
+      verticalSpacing,
+    ]
+  )
 
-    setStuck(shouldStuck)
-  }, [
-    contentHeight,
-    placeholderOffsetTop,
-    position,
-    isStuck,
-    stickOffset,
-    verticalSpacing,
-  ])
-
-  useLayoutEffect(() => {
-    handlePosition()
-    return attachListener(['resize', 'scroll'], handlePosition)
-  }, [handlePosition])
+  useWindowListener(['resize', 'scroll'], handlePosition)
 
   return {
     isStuck,
