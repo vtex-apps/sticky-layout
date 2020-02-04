@@ -8,7 +8,7 @@ import React, {
   useRef,
 } from 'react'
 import ReactResizeDetector from 'react-resize-detector'
-import { useCssHandles } from 'vtex.css-handles'
+import { useCssHandles, applyModifiers } from 'vtex.css-handles'
 
 import { useStickyScroll } from './modules/useStickyScroll'
 import { StackContext } from './StackContainer'
@@ -81,7 +81,7 @@ const StickyLayoutComponent: FC<Props> = ({
   }
 
   const containerClassname = [
-    handles.container,
+    isStuck ? applyModifiers(handles.container, ['stuck']) : handles.container,
     !zIndex && 'z-999',
     isStuck ? 'fixed' : 'relative',
     'w-100',
