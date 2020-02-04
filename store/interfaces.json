@@ -1,7 +1,12 @@
 {
   "sticky-layout": {
     "allowed": "*",
-    "component": "index",
+    "component": "StickyLayout",
+    "composition": "children"
+  },
+  "sticky-layout.stack-container": {
+    "allowed": "*",
+    "component": "StackContainer",
     "composition": "children"
   }
 }
