@@ -24,14 +24,15 @@ export const useStickyScroll = ({
     (scrollY: number) => {
       if (!contentHeight) return
 
+      const offset = stickOffset + verticalSpacing
       let currentPosition = scrollY
       let stuckPosition = placeholderOffsetTop
 
       if (position === Positions.TOP) {
-        stuckPosition -= stickOffset - verticalSpacing
+        stuckPosition -= offset
       } else {
         currentPosition += window.innerHeight
-        stuckPosition += stickOffset + verticalSpacing + contentHeight
+        stuckPosition += offset + contentHeight
       }
 
       const shouldStuck = currentPosition >= stuckPosition
