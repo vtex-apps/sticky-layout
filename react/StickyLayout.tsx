@@ -60,7 +60,7 @@ const StickyLayoutComponent: FC<Props> = ({
     return () => clearInterval(intervalID)
   }, [updatePlaceholderOffset])
 
-  // update the placeholder offset on DOM Parsing done
+  // update the placeholder offset when DOM parsing is done
   useWindowListener(['DOMContentLoaded'], updatePlaceholderOffset)
 
   // Context position prop precedes the StickyLayout position prop

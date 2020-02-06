@@ -81,10 +81,9 @@ The `sticky-layout.stack-container` block can be used to orchestrate multiple `s
 
 **Props:**
 
-| Prop name    | Type           | Description                                                                                               | Default value |
-| ------------ | -------------- | --------------------------------------------------------------------------------------------------------- | ------------- |
-| `blockClass` | `String`       | Unique class name to be appended to the container class                                                   | `""`          |
-| `position`   | `PositionEnum` | Indicates where the component should stick. _It overrides the `position` of its children `sticky-layout`_ | `N/A`         |
+| Prop name  | Type           | Description                                                                                               | Default value |
+| ---------- | -------------- | --------------------------------------------------------------------------------------------------------- | ------------- |
+| `position` | `PositionEnum` | Indicates where the component should stick. _It overrides the `position` of its children `sticky-layout`_ | `N/A`         |
 
 `PositionEnum` options:
 
