@@ -15,7 +15,7 @@ import { StackContext } from './StackContainer'
 import { Positions } from './typings'
 import { useWindowListener } from './modules/useWindowListener'
 
-const CSS_HANDLES = ['container'] as const
+const CSS_HANDLES = ['container', 'placeholder'] as const
 
 interface Props {
   position?: Positions
@@ -100,7 +100,11 @@ const StickyLayoutComponent: FC<Props> = ({
 
   return (
     <Fragment>
-      <div ref={placeholderRef} style={placeholderStyle} />
+      <div
+        ref={placeholderRef}
+        className={`${handles.placeholder}`}
+        style={placeholderStyle}
+      />
       <div
         ref={containerRef}
         className={containerClassname}
