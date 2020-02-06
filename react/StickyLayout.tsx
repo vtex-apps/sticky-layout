@@ -43,7 +43,7 @@ const StickyLayoutComponent: FC<Props> = ({
     StackContext
   )
 
-  // Capturing the `placeholder.offsetTop` is costy, triggering
+  // Capturing the `placeholder.offsetTop` is costly, triggering
   // the layer tree update, paint and composite steps.
   // To solve this, we use the DOMContentLoaded together with a setInterval
   // to regularly update this value instead of reading it on EVERY scroll handler.
