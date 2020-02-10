@@ -20,12 +20,12 @@ const useCumulativeHeightState = () => {
   }
 
   const getAccumulatedHeight = (index: number) => {
-    const sortedIndexes = Object.keys(state)
+    const sortedIndices = Object.keys(state)
       .map(key => parseInt(key, 10))
       .sort((a, b) => a - b)
 
-    const indexes = sortedIndexes.slice(0, sortedIndexes.indexOf(index))
-    return indexes.reduce((acc, cur) => (state[cur] || 0) + acc, 0)
+    const indices = sortedIndices.slice(0, sortedIndices.indexOf(index))
+    return indices.reduce((acc, cur) => (state[cur] || 0) + acc, 0)
   }
 
   return {
