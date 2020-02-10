@@ -18,6 +18,8 @@ export const StackContext = createContext<StackContext>({
   stickOffset: 0,
 })
 
+/** This component is used to accumulate the height of multiple StickLayout blocks,
+ * so that they get stacked instead of appearing in front of each other */
 const StackContainer: FC<Props> = ({ children, position = Positions.TOP }) => {
   const { updateRowHeight, getAccumulatedHeight } = useCumulativeHeightState()
 
