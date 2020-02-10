@@ -6,6 +6,7 @@ import React, {
   useLayoutEffect,
   useCallback,
   useRef,
+  CSSProperties,
 } from 'react'
 import ReactResizeDetector from 'react-resize-detector'
 import { useCssHandles, applyModifiers } from 'vtex.css-handles'
@@ -15,7 +16,7 @@ import { StackContext } from './StackContainer'
 import { Positions } from './typings'
 import { useWindowListener } from './modules/useWindowListener'
 
-const CSS_HANDLES = ['container', 'placeholder'] as const
+const CSS_HANDLES = ['container', 'wrapper'] as const
 
 interface Props {
   position?: Positions
@@ -31,37 +32,37 @@ const StickyLayoutComponent: FC<Props> = ({
 }) => {
   const handles = useCssHandles(CSS_HANDLES)
 
-  const placeholderRef = useRef<HTMLDivElement>(null)
+  const wrapperRef = useRef<HTMLDivElement>(null)
   const containerRef = useRef<HTMLDivElement>(null)
 
   // Height of the sticky layout content
   const [contentHeight, setContentHeight] = useState<number>(0)
-  // Distance of the sticky layout placeholder to the top of the page
-  const [placeholderOffsetTop, setPlaceholderOffsetTop] = useState<number>(0)
+  // Distance of the sticky layout wrapper to the top of the page
+  const [wrapperOffsetTop, setWrapperOffsetTop] = useState<number>(0)
 
   const { stickOffset, onResize, position: positionContext } = useContext(
     StackContext
   )
 
-  // Capturing the `placeholder.offsetTop` is costly, triggering
+  // Capturing the `wrapper.offsetTop` is costly, triggering
   // the layer tree update, paint and composite steps.
   // To solve this, we use the DOMContentLoaded together with a setInterval
   // to regularly update this value instead of reading it on EVERY scroll handler.
-  const updatePlaceholderOffset = useCallback(() => {
-    const offsetTop = placeholderRef.current?.offsetTop ?? 0
-    if (offsetTop !== placeholderOffsetTop) {
-      setPlaceholderOffsetTop(offsetTop)
+  const updateWrapperOffset = useCallback(() => {
+    const offsetTop = wrapperRef.current?.offsetTop ?? 0
+    if (offsetTop !== wrapperOffsetTop) {
+      setWrapperOffsetTop(offsetTop)
     }
-  }, [placeholderOffsetTop])
+  }, [wrapperOffsetTop])
 
-  // update the placeholder offset regularlay
+  // update the wrapper offset regularlay
   useLayoutEffect(() => {
-    const intervalID = setInterval(updatePlaceholderOffset, 3000)
+    const intervalID = setInterval(updateWrapperOffset, 3000)
     return () => clearInterval(intervalID)
-  }, [updatePlaceholderOffset])
+  }, [updateWrapperOffset])
 
-  // update the placeholder offset when DOM parsing is done
-  useWindowListener(['DOMContentLoaded'], updatePlaceholderOffset)
+  // update the wrapper offset when DOM parsing is done
+  useWindowListener(['DOMContentLoaded'], updateWrapperOffset)
 
   // Context position prop precedes the StickyLayout position prop
   const position = positionContext ?? positionProp ?? Positions.TOP
@@ -71,7 +72,7 @@ const StickyLayoutComponent: FC<Props> = ({
     position,
     verticalSpacing,
     contentHeight,
-    placeholderOffsetTop,
+    wrapperOffsetTop,
   })
 
   if (positionContext != null && positionProp != null) {
@@ -81,30 +82,30 @@ const StickyLayoutComponent: FC<Props> = ({
   }
 
   const containerClassname = [
-    isStuck ? applyModifiers(handles.container, ['stuck']) : handles.container,
+    handles.container,
     !zIndex && 'z-999',
-    isStuck ? 'fixed' : 'relative',
-    'w-100',
+    isStuck ? 'fixed' : 'absolute',
+    'left-0 right-0',
   ]
     .filter(Boolean)
     .join(' ')
 
-  const containerStyle = {
+  const wrapperClassname = isStuck
+    ? applyModifiers(handles.wrapper, ['stuck'])
+    : handles.wrapper
+
+  const containerStyle: CSSProperties = {
     [position]: isStuck ? verticalSpacing + stickOffset : 0,
     zIndex,
   }
 
-  const placeholderStyle = {
-    height: isStuck ? contentHeight : 0,
+  const wrapperStyle: CSSProperties = {
+    position: 'relative',
+    height: contentHeight,
   }
 
   return (
-    <Fragment>
-      <div
-        ref={placeholderRef}
-        className={handles.placeholder}
-        style={placeholderStyle}
-      />
+    <div ref={wrapperRef} className={wrapperClassname} style={wrapperStyle}>
       <div
         ref={containerRef}
         className={containerClassname}
@@ -121,7 +122,7 @@ const StickyLayoutComponent: FC<Props> = ({
           }}
         />
       </div>
-    </Fragment>
+    </div>
   )
 }
 

@@ -8,7 +8,7 @@ interface StickyProps {
   verticalSpacing?: number
   stickOffset?: number
   contentHeight: number
-  placeholderOffsetTop: number
+  wrapperOffsetTop: number
 }
 
 /*
@@ -19,7 +19,7 @@ interface StickyProps {
  *   verticalSpacing = 0,
  *   stickOffset = 0,
  *   contentHeight,
- *   placeholderOffsetTop,
+ *   wrapperOffsetTop,
  * }
  * @returns { isStuck }
  */
@@ -28,7 +28,7 @@ export const useStickyScroll = ({
   verticalSpacing = 0,
   stickOffset = 0,
   contentHeight,
-  placeholderOffsetTop,
+  wrapperOffsetTop,
 }: StickyProps) => {
   const [isStuck, setStuck] = useState<boolean>(false)
 
@@ -38,7 +38,7 @@ export const useStickyScroll = ({
 
       const offset = stickOffset + verticalSpacing
       let currentPosition = scrollY
-      let stuckPosition = placeholderOffsetTop
+      let stuckPosition = wrapperOffsetTop
 
       if (position === Positions.TOP) {
         stuckPosition -= offset
@@ -56,7 +56,7 @@ export const useStickyScroll = ({
     },
     [
       contentHeight,
-      placeholderOffsetTop,
+      wrapperOffsetTop,
       position,
       isStuck,
       stickOffset,

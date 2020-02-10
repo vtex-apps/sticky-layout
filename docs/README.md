@@ -38,11 +38,11 @@ The `sticky-layout` block is responsible for making its children _stick_ to a ce
 
 **CSS Handles:**
 
-| Prop name            | Description                                                                                                       |
-| -------------------- | ----------------------------------------------------------------------------------------------------------------- |
-| `container`          | Sticky layout container                                                                                           |
-| `container--stuck`   | Sticky layout container when stuck to a position on the page                                                      |
-| `placeholder--stuck` | Placeholder element that takes up the space previously used by the stuck element to prevent the page from jumping |
+| Prop name        | Description                                                                                                   |
+| ---------------- | ------------------------------------------------------------------------------------------------------------- |
+| `container`      | Sticky layout container                                                                                       |
+| `wrapper`        | Wrapper element that takes up the space previously used by the stuck element to prevent the page from jumping |
+| `wrapper--stuck` | Sticky layout wrapper when stuck to a position on the page                                                    |
 
 **Example usage:**
 
