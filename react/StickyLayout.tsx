@@ -56,7 +56,7 @@ const StickyLayoutComponent: FC<Props> = ({
 
   // update the placeholder offset regularlay
   useLayoutEffect(() => {
-    const intervalID = setInterval(updatePlaceholderOffset, 1000)
+    const intervalID = setInterval(updatePlaceholderOffset, 3000)
     return () => clearInterval(intervalID)
   }, [updatePlaceholderOffset])
 
