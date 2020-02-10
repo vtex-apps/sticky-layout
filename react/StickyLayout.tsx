@@ -114,7 +114,9 @@ const StickyLayoutComponent: FC<Props> = ({
         <ReactResizeDetector
           handleHeight
           onResize={(_, height) => {
-            setContentHeight(height)
+            if (isStuck === false) {
+              setContentHeight(height)
+            }
             onResize(height)
           }}
         />

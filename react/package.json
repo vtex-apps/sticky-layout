@@ -6,8 +6,8 @@
     "test": "vtex-test-tools test"
   },
   "dependencies": {
-    "throttleit": "^1.0.0",
-    "react-resize-detector": "^4.2.1"
+    "react-resize-detector": "^4.2.1",
+    "throttleit": "^1.0.0"
   },
   "devDependencies": {
     "@types/jest": "^25.1.1",

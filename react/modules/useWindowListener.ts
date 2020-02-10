@@ -1,6 +1,9 @@
 import { useLayoutEffect } from 'react'
 import throttle from 'throttleit'
 
+import canUsePassiveEventListeners from './canUsePassiveEventListeners'
+
+const canUsePassiveListener = canUsePassiveEventListeners()
 const currentEvents: Record<string, Set<Function>> = {}
 
 const throttledScrollResizeHandler = throttle((e: Event) => {
@@ -41,7 +44,11 @@ function attachListener(eventList: string[], fn: Function) {
   eventList.forEach(event => {
     if (!(event in currentEvents)) currentEvents[event] = new Set()
     if (currentEvents[event].size === 0) {
-      window.addEventListener(event, getHandler(event))
+      window.addEventListener(
+        event,
+        getHandler(event),
+        canUsePassiveListener ? { passive: true } : false
+      )
     }
     currentEvents[event].add(fn)
   })
