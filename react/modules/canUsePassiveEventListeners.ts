@@ -23,6 +23,12 @@ function testPassiveEventListeners() {
 
 let memoizedResult: boolean
 
+/**
+ * Checks if the browser supports using passive event listeners.
+ *
+ * @export
+ * @returns
+ */
 export default function canUsePassiveEventListeners() {
   if (memoizedResult === undefined) {
     memoizedResult = testPassiveEventListeners()

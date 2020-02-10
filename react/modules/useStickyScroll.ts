@@ -11,6 +11,18 @@ interface StickyProps {
   placeholderOffsetTop: number
 }
 
+/*
+ * Hook responsible for defining if a sticky element should stuck to the viewport or not
+ *
+ * @param {StickyProps} {
+ *   position,
+ *   verticalSpacing = 0,
+ *   stickOffset = 0,
+ *   contentHeight,
+ *   placeholderOffsetTop,
+ * }
+ * @returns { isStuck }
+ */
 export const useStickyScroll = ({
   position,
   verticalSpacing = 0,
@@ -35,12 +47,12 @@ export const useStickyScroll = ({
         stuckPosition += offset + contentHeight
       }
 
-      const shouldStuck = currentPosition >= stuckPosition
+      const shouldStick = currentPosition >= stuckPosition
 
       // same state, do nothing
-      if (isStuck === shouldStuck) return
+      if (isStuck === shouldStick) return
 
-      setStuck(shouldStuck)
+      setStuck(shouldStick)
     },
     [
       contentHeight,

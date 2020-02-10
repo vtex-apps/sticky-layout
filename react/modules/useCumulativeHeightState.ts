@@ -2,6 +2,11 @@ import { useState } from 'react'
 
 type State = Record<number, number>
 
+/**
+ * Accumulate the height of multiple elements.
+ *
+ * @returns { getAccumulatedHeight, updateRowHeight }
+ */
 const useCumulativeHeightState = () => {
   const [state, set] = useState<State>({})
 

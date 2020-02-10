@@ -56,6 +56,13 @@ function attachListener(eventList: string[], fn: Function) {
   return () => detachListener(eventList, fn)
 }
 
+/**
+ * Hook responsible for handling multiple event callbacks
+ * by using a single listener per event
+ * @export
+ * @param {string[]} eventList
+ * @param {Function} fn
+ */
 export function useWindowListener(eventList: string[], fn: Function) {
   useLayoutEffect(() => attachListener(eventList, fn), [eventList, fn])
 }
