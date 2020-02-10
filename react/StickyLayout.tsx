@@ -102,7 +102,7 @@ const StickyLayoutComponent: FC<Props> = ({
     <Fragment>
       <div
         ref={placeholderRef}
-        className={`${handles.placeholder}`}
+        className={handles.placeholder}
         style={placeholderStyle}
       />
       <div
