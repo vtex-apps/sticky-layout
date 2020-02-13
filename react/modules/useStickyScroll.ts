@@ -1,7 +1,7 @@
 import { useCallback, useState } from 'react'
 
 import { useWindowListener } from './useWindowListener'
-import { Positions } from '../typings'
+import { Positions } from '../types'
 
 interface StickyProps {
   position?: Positions

@@ -1,7 +1,7 @@
 import React, { FC, createContext } from 'react'
 
 import useCumulativeHeightState from './modules/useCumulativeHeightState'
-import { Positions } from './typings'
+import { Positions } from './types'
 
 interface StackContext {
   position?: Positions

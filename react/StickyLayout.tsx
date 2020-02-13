@@ -12,7 +12,7 @@ import { useCssHandles, applyModifiers } from 'vtex.css-handles'
 
 import { useStickyScroll } from './modules/useStickyScroll'
 import { StackContext } from './StackContainer'
-import { Positions } from './typings'
+import { Positions } from './types'
 import { useWindowListener } from './modules/useWindowListener'
 
 const CSS_HANDLES = ['container', 'wrapper'] as const
@@ -54,14 +54,14 @@ const StickyLayoutComponent: FC<Props> = ({
     }
   }, [wrapperOffsetTop])
 
-  // update the wrapper offset regularlay
+  // update the wrapper offset regularly because the page structure may have changed
   useLayoutEffect(() => {
     const intervalID = setInterval(updateWrapperOffset, 3000)
     return () => clearInterval(intervalID)
   }, [updateWrapperOffset])
 
   // update the wrapper offset when DOM parsing is done
-  useWindowListener(['DOMContentLoaded'], updateWrapperOffset)
+  useWindowListener(['DOMContentLoaded', 'resize'], updateWrapperOffset)
 
   // Context position prop precedes the StickyLayout position prop
   const position = positionContext ?? positionProp ?? Positions.TOP
