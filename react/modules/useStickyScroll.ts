@@ -42,6 +42,15 @@ export const useStickyScroll = ({
 
       if (position === Positions.TOP) {
         stuckPosition -= offset
+        /*
+         * We remove `1` from the current position because stuck elements at the top
+         * of the page must be able to be considered "unstuck".
+         * In example, a mobile header at the top of the page should be considered unstuck
+         * if the user scrolls back to the top of the page.
+         */
+        if (stuckPosition === 0 && currentPosition === 0) {
+          currentPosition -= 1
+        }
       } else {
         currentPosition += window.innerHeight
         stuckPosition += offset + contentHeight
