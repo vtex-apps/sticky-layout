@@ -34,7 +34,7 @@ export const useStickyScroll = ({
 
   const handlePosition = useCallback(
     (scrollY: number) => {
-      if (!contentHeight || typeof contentHeight !== "number") return
+      if (!contentHeight || typeof contentHeight !== 'number') return
 
       const offset = stickOffset + verticalSpacing
       let currentPosition = scrollY
