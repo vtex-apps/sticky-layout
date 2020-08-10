@@ -35,7 +35,7 @@ const StickyLayoutComponent: FC<Props> = ({
   const containerRef = useRef<HTMLDivElement>(null)
 
   // Height of the sticky layout content
-  const [contentHeight, setContentHeight] = useState<number>(0)
+  const [contentHeight, setContentHeight] = useState<number | string>('auto')
   // Distance of the sticky layout wrapper to the top of the page
   const [wrapperOffsetTop, setWrapperOffsetTop] = useState<number>(0)
 
@@ -83,7 +83,7 @@ const StickyLayoutComponent: FC<Props> = ({
   const containerClassname = [
     handles.container,
     !zIndex && 'z-999',
-    isStuck ? 'fixed' : 'absolute',
+    isStuck ? 'fixed' : 'relative',
     'left-0 right-0',
   ]
     .filter(Boolean)
