@@ -8,7 +8,7 @@ interface StickyProps {
   verticalSpacing?: number
   stickOffset?: number
   contentHeight: number | string
-  wrapperOffsetTop: number
+  wrapperOffsetTop: number | undefined
 }
 
 /*
@@ -34,7 +34,7 @@ export const useStickyScroll = ({
 
   const handlePosition = useCallback(
     (scrollY: number) => {
-      if (!contentHeight || typeof contentHeight !== 'number') return
+      if (!contentHeight || typeof contentHeight !== 'number' || wrapperOffsetTop === undefined) return
 
       const offset = stickOffset + verticalSpacing
       let currentPosition = scrollY
