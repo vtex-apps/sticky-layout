@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Fixed 
+- Prevents content overlap and layout shifting on the initial component load. [Vtex Request #1280105](https://support.vtex.com/hc/en-us/requests/1280105)
 
 ## [0.3.5] - 2025-08-27
 

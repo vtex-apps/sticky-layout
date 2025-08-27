@@ -37,7 +37,7 @@ const StickyLayoutComponent: FC<Props> = ({
   // Height of the sticky layout content
   const [contentHeight, setContentHeight] = useState<number | string>('auto')
   // Distance of the sticky layout wrapper to the top of the page
-  const [wrapperOffsetTop, setWrapperOffsetTop] = useState<number>(0)
+  const [wrapperOffsetTop, setWrapperOffsetTop] = useState<number | undefined>()
 
   const { stickOffset, onResize, position: positionContext } = useContext(
     StackContext
