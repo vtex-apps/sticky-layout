@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [0.3.5] - 2025-08-27
+
 ## [0.3.4] - 2020-08-10
 ### Fixed
 - Prevents initial overlap with content, which also prevents layout shift once the component loads.
